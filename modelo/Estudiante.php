@@ -38,7 +38,7 @@ class Estudiante {
     // La sentencia UPDATE utiliza WHERE para identificar el registro por su id
     $query = "UPDATE " . $this->table_name . "
               SET nombre=:nombre, apellido=:apellido, correo=:correo
-              WHERE id = :id";
+              WHERE id_estudiante = :id_estudiante";
     
     $stmt = $this->conn->prepare($query);
 
@@ -46,17 +46,38 @@ class Estudiante {
     $this->nombre = htmlspecialchars(strip_tags($this->nombre));
     $this->apellido = htmlspecialchars(strip_tags($this->apellido));
     $this->correo = htmlspecialchars(strip_tags($this->correo));
-    $this->id = htmlspecialchars(strip_tags($this->id));
+    $this->id_estudiante = htmlspecialchars(strip_tags($this->id_estudiante));
 
     $stmt->bindParam(":nombre", $this->nombre);
     $stmt->bindParam(":apellido", $this->apellido);
     $stmt->bindParam(":correo", $this->correo);
-    $stmt->bindParam(":id", $this->id); // Vincula el id para el WHERE
+    $stmt->bindParam(":id_estudiante", $this->id_estudiante); // Vincula el id para el WHERE
+
 
     if($stmt->execute()){
         return true;
     }
     return false;
+}
+
+public function obtenerPorId($id) {
+    // Consulta para seleccionar un solo registro por su ID
+    $query = "SELECT * FROM " . $this->table_name . " WHERE id_estudiante = ? LIMIT 0,1";
+
+    // Prepara la consulta
+    $stmt = $this->conn->prepare($query);
+
+    // Vincula el ID
+    $stmt->bindParam(1, $id);
+
+    // Ejecuta la consulta
+    $stmt->execute();
+
+    // Obtiene el registro como un arreglo asociativo
+    //$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Si se encontró el registro, asigna sus valores a las propiedades del objeto
+    return $stmt->fetch(PDO::FETCH_ASSOC); // Indica que no se encontró el estudiante
 }
 
     // Método para leer todos los estudiantes

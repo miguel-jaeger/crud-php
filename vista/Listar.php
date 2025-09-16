@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
                 <td><?php echo $row['nombre']; ?></td>
                 <td><?php echo $row['apellido']; ?></td>
                 <td><?php echo $row['correo']; ?></td>
+                <td><a href="index.php?action=editar&id=<?php echo $row['id_estudiante']; ?>">Editar</a></td>
                 <td><a href="index.php?action=eliminar&id=<?php echo $row['id_estudiante']; ?>">Eliminar</a></td>
             </tr>
             <?php endwhile; ?>

@@ -28,6 +28,21 @@ if($post_action == 'crear'){
     } else {
         echo "Error al crear estudiante.";
     }
+}else if($post_action == 'editar'){
+    // Si la acción es 'crear' (viene del formulario POST)
+    $estudiante->nombre = $_POST['nombre'];
+    $estudiante->apellido = $_POST['apellido'];
+    $estudiante->correo = $_POST['correo'];
+    $estudiante->id_estudiante =  $_POST['id_estudiante'];
+
+    // Llama al método del Modelo para guardar los datos
+    if($estudiante->actualizar()){
+        // Redirige a la lista de estudiantes si todo sale bien
+        header("Location: index.php?action=listar&status=success");
+        exit();
+    } else {
+        echo "Error al crear estudiante.";
+    }
 } else if ($action == 'listar') {
     // Si la acción es 'listar' (viene de una petición GET)
     // Llama al método del Modelo para obtener los datos
