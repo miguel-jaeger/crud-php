@@ -1,6 +1,6 @@
 <?php
-require_once 'app/models/Database.php';
-require_once 'app/models/Estudiante.php';
+require_once './modelo/Conexion.php';
+require_once './modelo/Estudiante.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -22,9 +22,12 @@ if($post_action == 'crear'){
     }
 } else if ($action == 'listar') {
     $estudiantes = $estudiante->leer();
-    require_once 'app/views/lista.php';
-} else {
+    require_once './vista/Listar.php';
+} else if( $action == 'eliminar') { 
+    $estudiante->eliminar($_GET['id']);  
+    require_once './vista/Listar.php';  
+}else{
     // Si no se especifica ninguna acción, muestra el formulario
-    require_once 'app/views/formulario.php';
+    require_once './vista/Registro.php';
 }
 ?>

@@ -12,6 +12,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Correo</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                 <td><?php echo $row['nombre']; ?></td>
                 <td><?php echo $row['apellido']; ?></td>
                 <td><?php echo $row['correo']; ?></td>
+                <td><a href="index.php?action=eliminar&id=<?php echo $row['id_estudiante']; ?>">Eliminar</a></td>
             </tr>
             <?php endwhile; ?>
         </tbody>

@@ -2,6 +2,7 @@
 
 class Database {
     private $host = "localhost";
+    //Datos a cambiar
     private $db_name = "db_estudiantes";
     private $username = "root";
     private $password = "";

@@ -36,7 +36,15 @@ class Estudiante {
 
     // Método para leer todos los estudiantes
     public function leer() {
-        $query = "SELECT id_estudiante, nombre, apellido, correo FROM " . $this->table_name . " ORDER BY id_estudiante DESC";
+        $query = "SELECT * FROM " . $this->table_name . " ORDER BY id_estudiante DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    //Eliminar estudiante
+    public function eliminar($id_estudiante) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id_estudiante=$id_estudiante";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
