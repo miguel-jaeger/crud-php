@@ -34,6 +34,31 @@ class Estudiante {
         return false;
     }
 
+    public function actualizar() {
+    // La sentencia UPDATE utiliza WHERE para identificar el registro por su id
+    $query = "UPDATE " . $this->table_name . "
+              SET nombre=:nombre, apellido=:apellido, correo=:correo
+              WHERE id = :id";
+    
+    $stmt = $this->conn->prepare($query);
+
+    // Limpia y vincula los datos, igual que en el método crear()
+    $this->nombre = htmlspecialchars(strip_tags($this->nombre));
+    $this->apellido = htmlspecialchars(strip_tags($this->apellido));
+    $this->correo = htmlspecialchars(strip_tags($this->correo));
+    $this->id = htmlspecialchars(strip_tags($this->id));
+
+    $stmt->bindParam(":nombre", $this->nombre);
+    $stmt->bindParam(":apellido", $this->apellido);
+    $stmt->bindParam(":correo", $this->correo);
+    $stmt->bindParam(":id", $this->id); // Vincula el id para el WHERE
+
+    if($stmt->execute()){
+        return true;
+    }
+    return false;
+}
+
     // Método para leer todos los estudiantes
     public function leer() {
         $query = "SELECT * FROM " . $this->table_name . " ORDER BY id_estudiante DESC";
